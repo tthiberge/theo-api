@@ -3,6 +3,6 @@ Rails.application.routes.draw do
     resources :missions, only: [:index]
   end
 
-  root to: "listings#index"
+  # root to: "listings#index"
 
 end

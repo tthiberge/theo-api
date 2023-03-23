@@ -18,9 +18,9 @@ class ListingsController < ApplicationController
   def show
     @listing = Listing.find(params[:id])
 
-    # @listing.missions.delete_all
+    @listing.missions.delete_all # ma variable est vidée et dans le render json j'appelle les missions en faisant référence à @listing
     # Doesn't work
-
+    @listing.reload # Permet de réinitialiser mon instance de @listing
     # Je crée les missions associées à cet appart
 
     @listing.bookings.each do |booking|
@@ -65,6 +65,14 @@ class ListingsController < ApplicationController
 
   def create
     @listing = Listing.create(listing_params)
+    # .new
+
+    # if @listing.save
+      #   render nothing: true, status: :created #(ce qu'on a vu dans la réponse postman comme message)
+      # else
+      #   render json: @listing.errors, status: :unprocessable_entity
+      # end
+
     render json: @listing
   end
 
@@ -73,6 +81,13 @@ class ListingsController < ApplicationController
 
   def update
     @listing = Listing.find(params[:id])
+
+      # if listing.update(listing_params)
+      #  render nothing: true, status: :updated
+      # else
+      #   render json: @listing.errors, status: :unprocessable_entity
+      # end
+
     @listing.update_attributes(listing_params)
     render json: @listing
   end
@@ -80,6 +95,7 @@ class ListingsController < ApplicationController
   def destroy
     @listing = Listing.find(params[:id])
     @listing.destroy
+    # render nothing: true,
     redirect_to listings_path
   end
 

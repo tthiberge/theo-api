@@ -19,6 +19,7 @@ class ListingsController < ApplicationController
     @listing = Listing.find(params[:id])
 
     # @listing.missions.delete_all
+    # Doesn't work
 
     # Je crée les missions associées à cet appart
 
